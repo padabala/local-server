@@ -1,92 +1,148 @@
 {
   "saleItems": [
     {
-      "id": 1,
+      "id": "1",
       "description": "2 years old mountain bike in good condition. 26 inches 21 gears",
       "createdDateTime": "2023-06-03T10:20:46Z",
       "updatedDateTime": "2023-06-03T10:20:46Z",
       "category": "Sports",
-      "originalPrice": "130",
+      "originalPrice": "160",
       "updatedPrice": "130",
-      "userId": "1",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/bicycle.jpg"
+      "user": {
+        "id": "1",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@gmail.com",
+        "phone": "+358123456789"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/bicycle.jpg",
+      "status": "available"
     },
     {
-      "id": 2,
+      "id": "2",
       "description": "Used car tyres 215/60 R 16, 3 years old 20000km driven",
       "createdDateTime": "2023-04-03T10:20:46Z",
       "updatedDateTime": "2023-04-03T10:20:46Z",
       "category": "Automotive",
       "originalPrice": "30",
       "updatedPrice": "30",
-      "userId": "1",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/car-tyres.jpeg"
+      "user": {
+        "id": "1",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john.doe@gmail.com",
+        "phone": "+358123456789"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/car-tyres.jpeg",
+      "status": "available"
     },
     {
-      "id": 3,
+      "id": "3",
       "description": "50cm colourful flower pot",
       "createdDateTime": "2023-05-03T10:20:46Z",
       "updatedDateTime": "2023-05-03T10:20:46Z",
       "category": "Garden",
       "originalPrice": "10",
       "updatedPrice": "10",
-      "userId": "2",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/flower-pot.jpeg"
+      "user": {
+        "id": "2",
+        "firstName": "James",
+        "lastName": "Bond",
+        "email": "james.bond@gmail.com",
+        "phone": "+358123451234"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/flower-pot.jpeg",
+      "status": "available"
     },
     {
-      "id": 4,
+      "id": "4",
       "description": "Garden table in good condition, 1 round table and 2 chairs",
-      "createdDateTime": "2023-05-03T9:20:46Z",
-      "updatedDateTime": "2023-05-03T9:20:46Z",
+      "createdDateTime": "2023-05-03T09:20:46Z",
+      "updatedDateTime": "2023-05-03T09:20:46Z",
       "category": "Garden",
       "originalPrice": "40",
       "updatedPrice": "40",
-      "userId": "3",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/garden-table.png"
+      "user": {
+        "id": "3",
+        "firstName": "Mary",
+        "lastName": "Richard",
+        "email": "mary.richard@gmail.com",
+        "phone": "+358123459876"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/garden-table.png",
+      "status": "available"
     },
     {
-      "id": 5,
+      "id": "5",
       "description": "Ladies heels, pure leather, size 7 and some wear markrs",
       "createdDateTime": "2023-03-03T12:20:46Z",
       "updatedDateTime": "2023-03-03T12:20:46Z",
       "category": "Fashion",
       "originalPrice": "30",
       "updatedPrice": "30",
-      "userId": "4",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/shoes.jpeg"
+      "user": {
+        "id": "4",
+        "firstName": "Maria",
+        "lastName": "Susan",
+        "email": "maria.susan@gmail.com",
+        "phone": "+358567891234"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/shoes.jpeg",
+      "status": "available"
     },
     {
-      "id": 6,
+      "id": "6",
       "description": "Beautiful skirt. Weist size is 30",
       "createdDateTime": "2023-03-03T10:20:46Z",
       "updatedDateTime": "2023-03-03T10:20:46Z",
       "category": "Fashion",
       "originalPrice": "15",
       "updatedPrice": "15",
-      "userId": "4",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/skirt.webp"
+      "user": {
+        "id": "4",
+        "firstName": "Maria",
+        "lastName": "Susan",
+        "email": "maria.susan@gmail.com",
+        "phone": "+358567891234"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/skirt.webp",
+      "status": "available"
     },
     {
-      "id": 7,
+      "id": "7",
       "description": "Bosch multipurpose tool kit",
       "createdDateTime": "2023-02-03T10:20:46Z",
       "updatedDateTime": "2023-02-03T10:20:46Z",
       "category": "Home",
       "originalPrice": "120",
-      "updatedPrice": "120",
-      "userId": "6",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/tool-kit.png"
+      "updatedPrice": "110",
+      "user": {
+        "id": "5",
+        "firstName": "Ethan",
+        "lastName": "Agent",
+        "email": "ethan@gmail.com",
+        "phone": "+358987654321"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/tool-kit.png",
+      "status": "available"
     },
     {
-      "id": 8,
+      "id": "8",
       "description": "Bunch of children toys",
       "createdDateTime": "2023-01-03T10:20:46Z",
       "updatedDateTime": "2023-01-03T10:20:46Z",
       "category": "Toys",
       "originalPrice": "30",
       "updatedPrice": "30",
-      "userId": "7",
-      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/toys.png"
+      "user": {
+        "id": "5",
+        "firstName": "Ethan",
+        "lastName": "Agent",
+        "email": "ethan@gmail.com",
+        "phone": "+358987654321"
+      },
+      "imageUrl": "https://raw.githubusercontent.com/padabala/local-server/587f83e186aa478be0e9211ed29999f59750a4cc/src/assets/toys.png",
+      "status": "available"
     }
   ]
 }
