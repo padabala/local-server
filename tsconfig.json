@@ -1,18 +1,22 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "noImplicitAny": true,
-        "sourceMap": true,
-        "outDir": "dist",
-        "resolveJsonModule": true,
-        "baseUrl": ".",
-        "paths": {
-            "*": ["node_modules/*"]
-        },
-        "allowJs": true
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "outDir": "dist",
+    "strict": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules", "src/*"]
     },
-    "include": ["src/**/*"]
+    "allowJs": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [".vscode"]
 }
