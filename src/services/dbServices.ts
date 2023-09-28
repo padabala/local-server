@@ -1,7 +1,6 @@
-import { Sale, User } from 'modals'
+import { Sale, SaleStatus, User } from '../modals'
 import { dbClient } from './dbConnection'
 import { FindOneAndUpdateOptions, ObjectId } from 'mongodb'
-import { error } from 'console'
 
 export const getUserFromDb = async (email: string, password: string) => {
   try {
@@ -53,7 +52,7 @@ export const getSaleItemsFromDb = async () => {
     })
     return items
   } catch (err) {
-    console.error('Error reading user from DB' + JSON.stringify(err))
+    console.error('Error reading sale items from DB' + JSON.stringify(err))
   } finally {
     await dbClient.close()
   }
@@ -89,6 +88,63 @@ export const deleteSale = async (_id: string) => {
     // It is like Upsert
     const result = await sales.deleteOne(filter)
     return result
+  } catch (err) {
+    console.error('Error creating sale item in DB: ' + +JSON.stringify(err))
+  } finally {
+    await dbClient.close()
+  }
+}
+
+export const syncAndGetAvailableSaleItems = async (saleItems: Sale[]) => {
+  try {
+    await dbClient.connect()
+    const database = dbClient.db('fleamarket')
+    const sales = database.collection('sales')
+
+    if (saleItems && saleItems.length > 0) {
+      const deletedItems: Sale[] = saleItems.filter(
+        item => item.status === SaleStatus.DELETED
+      )
+      const updatedItems: Sale[] = saleItems.filter(
+        item => item.status === SaleStatus.OFFLINE
+      )
+      if (deletedItems.length > 0) {
+        deletedItems.forEach(async item => {
+          const filter = { _id: new ObjectId(item._id) }
+          const result = await sales.deleteOne(filter)
+        })
+      }
+      if (updatedItems.length > 0) {
+        const options: FindOneAndUpdateOptions = {
+          upsert: true,
+          returnDocument: 'after'
+        }
+        updatedItems.forEach(async item => {
+          item.status = SaleStatus.AVAILABLE
+          const filter = { _id: new ObjectId(item._id) }
+          // It is like Upsert
+          const result = await sales.findOneAndUpdate(
+            filter,
+            {
+              $set: {
+                ...item,
+                _id: new ObjectId(item._id)
+              }
+            },
+            options
+          )
+        })
+      }
+    }
+    // It is like Upsert
+    const items: Sale[] = []
+    const cursor = sales.find({ status: 'available' })
+    console.log('cursor: ' + JSON.stringify(cursor))
+    await cursor.forEach(item => {
+      console.log('item: ' + JSON.stringify(item))
+      items.push(item as unknown as Sale)
+    })
+    return items
   } catch (err) {
     console.error('Error creating sale item in DB: ' + +JSON.stringify(err))
   } finally {

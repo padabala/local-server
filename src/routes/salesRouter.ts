@@ -1,15 +1,22 @@
 import express, { Request, Response } from 'express'
 import { Sale, SaleStatus } from '../modals'
 import { ObjectId } from 'mongodb'
-import { createOrUpdateSale, deleteSale, getSaleItemsFromDb } from '../services'
+import {
+  createOrUpdateSale,
+  deleteSale,
+  getSaleItemsFromDb,
+  syncAndGetAvailableSaleItems
+} from '../services'
 
 export const salesRouter = express.Router()
 
 salesRouter.use(express.json())
 
 salesRouter.post('/sales/sync', async (_req: Request, res: Response) => {
+  console.log('request data: ' + JSON.stringify(_req.body))
+  const syncPendingItems: Sale[] = _req.body
   try {
-    const saleItems = await getSaleItemsFromDb()
+    const saleItems = await syncAndGetAvailableSaleItems(syncPendingItems)
     res.status(200).send(saleItems ?? [])
   } catch (error) {
     res.status(500).send(error)
