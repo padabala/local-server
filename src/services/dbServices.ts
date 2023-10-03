@@ -121,15 +121,19 @@ export const syncAndGetAvailableSaleItems = async (saleItems: Sale[]) => {
         }
         updatedItems.forEach(async item => {
           item.status = SaleStatus.AVAILABLE
-          const filter = { _id: new ObjectId(item._id) }
+          if (!item._id) {
+            item._id = new ObjectId()
+          } else {
+            item._id = new ObjectId(item._id)
+          }
+          const filter = {
+            _id: item._id
+          }
           // It is like Upsert
           const result = await sales.findOneAndUpdate(
             filter,
             {
-              $set: {
-                ...item,
-                _id: new ObjectId(item._id)
-              }
+              $set: item
             },
             options
           )

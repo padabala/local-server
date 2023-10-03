@@ -37,8 +37,9 @@ salesRouter.post('/sales/delete', async (_req: Request, res: Response) => {
 salesRouter.post('/sales/create', async (_req: Request, res: Response) => {
   try {
     console.log('create sale' + JSON.stringify(_req.body))
+    const isNewItem = _req.body._id === '' || _req.body._id.length > 24
     const sale: Sale = {
-      _id: _req.body._id === '' ? new ObjectId() : new ObjectId(_req.body._id),
+      _id: isNewItem ? new ObjectId() : new ObjectId(_req.body._id),
       description: _req.body.description,
       createdDateTime: _req.body.createdDateTime,
       updatedDateTime: _req.body.updatedDateTime ?? _req.body.createdDateTime,
