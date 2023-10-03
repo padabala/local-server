@@ -121,7 +121,7 @@ export const syncAndGetAvailableSaleItems = async (saleItems: Sale[]) => {
         }
         updatedItems.forEach(async item => {
           item.status = SaleStatus.AVAILABLE
-          if (!item._id) {
+          if (!item._id || item._id.toString().length > 24) {
             item._id = new ObjectId()
           } else {
             item._id = new ObjectId(item._id)
@@ -150,7 +150,7 @@ export const syncAndGetAvailableSaleItems = async (saleItems: Sale[]) => {
     })
     return items
   } catch (err) {
-    console.error('Error creating sale item in DB: ' + +JSON.stringify(err))
+    console.error('Error syncing sale items to DB: ' + +JSON.stringify(err))
   } finally {
     await dbClient.close()
   }

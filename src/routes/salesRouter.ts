@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import { Sale, SaleStatus } from '../modals'
 import { ObjectId } from 'mongodb'
+import { DateTime } from 'luxon'
 import {
   createOrUpdateSale,
   deleteSale,
@@ -14,8 +15,8 @@ salesRouter.use(express.json())
 
 salesRouter.post('/sales/sync', async (_req: Request, res: Response) => {
   console.log('request data: ' + JSON.stringify(_req.body))
-  const syncPendingItems: Sale[] = _req.body
   try {
+    const syncPendingItems: Sale[] = _req.body
     const saleItems = await syncAndGetAvailableSaleItems(syncPendingItems)
     res.status(200).send(saleItems ?? [])
   } catch (error) {
@@ -37,12 +38,12 @@ salesRouter.post('/sales/delete', async (_req: Request, res: Response) => {
 salesRouter.post('/sales/create', async (_req: Request, res: Response) => {
   try {
     console.log('create sale' + JSON.stringify(_req.body))
-    const isNewItem = _req.body._id === '' || _req.body._id.length > 24
+    const dateTimeNow = DateTime.now().toISO() ?? ''
     const sale: Sale = {
-      _id: isNewItem ? new ObjectId() : new ObjectId(_req.body._id),
+      _id: new ObjectId(),
       description: _req.body.description,
-      createdDateTime: _req.body.createdDateTime,
-      updatedDateTime: _req.body.updatedDateTime ?? _req.body.createdDateTime,
+      createdDateTime: dateTimeNow,
+      updatedDateTime: dateTimeNow,
       category: _req.body.category,
       originalPrice: _req.body.originalPrice,
       updatedPrice: _req.body.updatedPrice ?? _req.body.originalPrice,
@@ -55,7 +56,34 @@ salesRouter.post('/sales/create', async (_req: Request, res: Response) => {
     if (createdSale) {
       res.status(200).send(sale)
     } else {
-      res.status(402).send('Error creating')
+      res.status(402).send('Error creating sale')
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+})
+
+salesRouter.post('/sales/update', async (_req: Request, res: Response) => {
+  try {
+    console.log('update sale' + JSON.stringify(_req.body))
+    const isOfflineItem = _req.body._id === '' || _req.body._id.length > 24
+    const sale: Sale = {
+      _id: isOfflineItem ? new ObjectId() : new ObjectId(_req.body._id),
+      description: _req.body.description,
+      createdDateTime: _req.body.createdDateTime,
+      updatedDateTime: DateTime.now().toISO() ?? '',
+      category: _req.body.category,
+      originalPrice: _req.body.originalPrice,
+      updatedPrice: _req.body.updatedPrice ?? _req.body.originalPrice,
+      user: _req.body.user,
+      imageUrl: _req.body.imageUrl,
+      status: SaleStatus.AVAILABLE
+    }
+    const createdSale = await createOrUpdateSale(sale)
+    if (createdSale) {
+      res.status(200).send(sale)
+    } else {
+      res.status(402).send('Error updating sale')
     }
   } catch (error) {
     res.status(500).send(error)
