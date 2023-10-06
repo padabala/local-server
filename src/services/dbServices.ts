@@ -85,7 +85,6 @@ export const deleteSale = async (_id: string) => {
     const database = dbClient.db('fleamarket')
     const sales = database.collection('sales')
     const filter = { _id: new ObjectId(_id) }
-    // It is like Upsert
     const result = await sales.deleteOne(filter)
     return result
   } catch (err) {
@@ -111,7 +110,7 @@ export const syncAndGetAvailableSaleItems = async (saleItems: Sale[]) => {
       if (deletedItems.length > 0) {
         deletedItems.forEach(async item => {
           const filter = { _id: new ObjectId(item._id) }
-          const result = await sales.deleteOne(filter)
+          await sales.deleteOne(filter)
         })
       }
       if (updatedItems.length > 0) {
@@ -130,17 +129,18 @@ export const syncAndGetAvailableSaleItems = async (saleItems: Sale[]) => {
             _id: item._id
           }
           // It is like Upsert
-          const result = await sales.findOneAndUpdate(
+          const createdItem = await sales.findOneAndUpdate(
             filter,
             {
               $set: item
             },
             options
           )
+          console.log('createdItem:' + JSON.stringify(createdItem))
         })
       }
     }
-    // It is like Upsert
+    // read all sale Items
     const items: Sale[] = []
     const cursor = sales.find({ status: 'available' })
     console.log('cursor: ' + JSON.stringify(cursor))
